@@ -1,17 +1,16 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import { render  } from 'react-dom'
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+//主框架
+import App from './App'
+//内存数据
+import free from './utils/memoryFree'
+//存储器
+import memory from './utils/memory'
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+//从本地存储内取出数据存放到内存
+try{
+  free.user = JSON.parse(memory.getUser())
+}
+catch(err){}
+
+render(<App/>, document.querySelector('#root'))
