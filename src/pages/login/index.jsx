@@ -33,10 +33,10 @@ export default class Login extends Component{
       { status , data} = await login(values)
     
       //验证成功和失败的持续时间是不同的
-      toTime = status === 0 ? 4500 : 1500
+      toTime = status === 0 ? 3500 : 1500
       //成功信息
       if(status === 0) {
-        setTimeout( () => message.success('Logged in,redirect 3s affter',3) , 1500 )
+        setTimeout( () => message.success('Logged in,redirect 2s affter',3) , 1500 )
         //保存用户登录的信息
         memory.saveUser(JSON.stringify(data))
       }
@@ -57,7 +57,7 @@ export default class Login extends Component{
       { required: true,  message: 'Please input your Username!' },
       { whitespace:true, },
       { min:3,max:12 },
-      { pattern:/^\w+$/,message:"must make up in A-Z | a-z | 0-9 | _" }
+      // { pattern:/^\w+$/,message:"must make up in A-Z | a-z | 0-9 | _" }
       
     ],
     //密码的验证规则

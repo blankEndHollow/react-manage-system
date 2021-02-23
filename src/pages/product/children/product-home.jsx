@@ -61,7 +61,7 @@ export default class Home extends Component {
              <Select.Option value='productDesc'>按描述搜索</Select.Option>
            </Select>
            <Input ref={ curr => this.input = curr } style={{width:'200px',margin:'0 15px'}} placeholder='请输入关键字' />
-           <Button onClick={ this.getProducts.bind(this, 1) } type="primary">Search</Button>
+           <Button onClick={ ()=>{ act=1; this.getProducts(1) }  } type="primary">Search</Button>
          </span>
         } extra={ <Button type='primary' onClick={()=> this.props.history.push('/product/update',{title:'添加商品'})}>添加商品</Button> }>
         {/* 卡片内容 */}

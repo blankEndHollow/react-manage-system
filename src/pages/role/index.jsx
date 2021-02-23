@@ -12,7 +12,8 @@ import { empty } from '../../utils/rules'
 //导入导航列表数据
 import menuList from '../../utils/menuList'
 //导入内存数据
-import free from '../../utils/memoryFree'
+import free from '../../utils/memoryFree' 
+import memory from '../../utils/memory'
 const treeNodes = [
   {
     title:'平台权限' ,
@@ -53,8 +54,8 @@ export default class Role extends Component {
       {/* 用户展示 */}
           <Table bordered rowKey="_id" dataSource={ roles } loading={ loading }
                  columns={ this.columns } pagination={{defaultPageSize:4 , pageSizeOptions:[] ,simple: true }}
-                 rowSelection={{type:'radio' , selectedRowKeys:[role._id]}} 
-                 onRow={ role => ({ onClick: () =>{ this.setState({ role})  }}) }>
+                 rowSelection={{type:'radio' , selectedRowKeys:[role._id] ,onSelect:role=>this.setState({ role })}} 
+                 onRow={ role => ({ onClick: () =>this.setState({ role }) }) }>
             
           </Table>
           {/* 添加用户 */}
@@ -103,9 +104,10 @@ export default class Role extends Component {
         //清空输入框内容
         this.formAdd.resetFields()
        //提示成功
-       message.success('添加成功',.8)
-       //添加到角色列表
+       message.success('添加成功',.8) 
+         //添加到角色列表
        this.setState({ roles: [ ...this.state.roles,data ] , showForm: 0 })
+       
       }
    }
 
@@ -131,11 +133,24 @@ export default class Role extends Component {
     role.menus = this.state.checked
     role.auth_name = free.user.username
     role.auth_time = Date.now()
-    let { status } = await sendAuth(role)
+    let { status , data } = await sendAuth(role)
     if(status === 0){
-      //提示成功
-      message.success('设置权限成功')
-      this.setState({ showForm: 0 , btnLoaing: false , roles: [...this.state.roles]})
+      //是否修改了当前用户的角色
+      if(free.user.role_id === data._id){
+        //清除登录信息和本地存储并跳转到登录页
+        message.warning('修改了当前角色,2s后跳转登录页')
+        setTimeout(()=>{
+          free.user ={}
+          memory.removeUser()
+          this.props.history.replace('/login')
+        },2000)
+      }else{
+        
+        //提示成功
+        message.success('设置权限成功')
+        this.setState({ showForm: 0 , btnLoaing: false , roles: [...this.state.roles]})
+      }
+      
     }
   }
 }
