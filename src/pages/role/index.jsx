@@ -36,6 +36,7 @@ export default class Role extends Component {
   componentDidMount(){
    this.getRoles() 
   }
+  
   //添加角色表单
   formAdd = null
   //表单内的占比
