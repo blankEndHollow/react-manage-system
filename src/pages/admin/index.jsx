@@ -40,9 +40,9 @@ export default class Login extends Component{
                 <Route path="/product" component={ lazy( ()=> import('../product') ) } />
                 <Route path="/role" component={ lazy( ()=> import('../role') ) } />
                 <Route path="/user" component={ lazy( ()=> import('../user') ) } />
-                <Route path="/echarts/bar" component={ lazy( ()=> import('../echarts/bar') ) } />
-                <Route path="/echarts/line" component={ lazy( ()=> import('../echarts/line') ) } />
-                <Route path="/echarts/pie" component={ lazy( ()=> import('../echarts/pie') ) } />
+                <Route path="/charts/bar" component={ lazy( ()=> import('../echarts/bar') ) } />
+                <Route path="/charts/line" component={ lazy( ()=> import('../echarts/line') ) } />
+                <Route path="/charts/pie" component={ lazy( ()=> import('../echarts/pie') ) } />
                 {/* 未定义的地址统一去处 */}
                 <Redirect to='/home' />
               </Switch>

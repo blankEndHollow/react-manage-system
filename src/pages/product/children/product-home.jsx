@@ -2,7 +2,7 @@ import { Component } from 'react'
 //antd组件
 import { Button , Input , Table , Card , Select, message } from 'antd'
 //引入请求数据接口
-import { productPop , searchProducts , setStatus } from '../../../api/network'
+import { productPop , searchProducts , setStatus , getCategoryName } from '../../../api/network'
 let act = 1 // 商品离开前的页码
 /* 商品的主页 */
 export default class Home extends Component {
@@ -37,7 +37,11 @@ export default class Home extends Component {
         return (
           <>
             <Button size= 'small' onClick={ () => this.props.history.push('/product/detail',product) }>详情</Button>
-            <Button size= 'small'>修改</Button>
+            <Button size= 'small' onClick={ async ()=> {
+              //获取分类后发送 
+              let prd = await this.getCaName(product)
+              this.props.history.push('/product/update',{ title:'修改商品' , product:prd })
+               } }>修改</Button>
           </>
         )
       } }
@@ -59,7 +63,7 @@ export default class Home extends Component {
            <Input ref={ curr => this.input = curr } style={{width:'200px',margin:'0 15px'}} placeholder='请输入关键字' />
            <Button onClick={ this.getProducts.bind(this, 1) } type="primary">Search</Button>
          </span>
-        } extra={ <Button type='primary'>添加商品</Button> }>
+        } extra={ <Button type='primary' onClick={()=> this.props.history.push('/product/update',{title:'添加商品'})}>添加商品</Button> }>
         {/* 卡片内容 */}
           <Table 
              dataSource={ products } 
@@ -98,4 +102,18 @@ export default class Home extends Component {
     this.setState({loading: false}) //隐藏loading
   }
 
+  //获取分类
+  async getCaName(product) {
+    let { categoryId , pCategoryId , category , name , desc , price , detail ,imgs , _id } = product
+    let result = []
+    //判断是分类等级
+    if(categoryId === '0'){
+      result[0] = await getCategoryName({ categoryId: pCategoryId })
+    }else{
+      [ result[0] , result[1] ] = await Promise.all( [ getCategoryName({ categoryId: pCategoryId }) , getCategoryName({ categoryId })] )
+    }
+
+    category = result[1] ? [ result[0].data.name , result[1].data.name ] : [ result[0].data.name ]
+    return { categoryId , pCategoryId , category , name , desc , price , detail , imgs , _id }
+  }
 }

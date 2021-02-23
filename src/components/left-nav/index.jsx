@@ -70,7 +70,7 @@ export default class LeftNav extends Component {
             
             <SubMenu key="sub1" icon={<AppstoreOutlined />} title="商品">
               <Menu.Item icon={<BarsOutlined />} key="2"><Link to='/category'>品类管理</Link></Menu.Item>
-              <Menu.Item icon={<BarcodeOutlined />} key="3"><Link to="/product">商品管理</Link></Menu.Item>
+              <Menu.Item icon={<BarcodeOutlined />} key="3"><Link to='/product'>商品管理</Link></Menu.Item>
             </SubMenu>
             
             <Menu.Item icon={<UserSwitchOutlined />} key="4">
@@ -81,9 +81,9 @@ export default class LeftNav extends Component {
             </Menu.Item>
 
             <SubMenu key="sub2" icon={<FundProjectionScreenOutlined />} title="图形图表">
-              <Menu.Item icon={<BarChartOutlined />} key="6"><Link to='/echarts/bar'>柱形图</Link></Menu.Item>
-              <Menu.Item icon={<LineChartOutlined />} key="7"><Link to="/echarts/line">折线图</Link></Menu.Item>
-              <Menu.Item icon={<PieChartOutlined />} key="8"><Link to="/echarts/pie">饼图</Link></Menu.Item>
+              <Menu.Item icon={<BarChartOutlined />} key="6"><Link to='/charts/bar'>柱形图</Link></Menu.Item>
+              <Menu.Item icon={<LineChartOutlined />} key="7"><Link to="/charts/line">折线图</Link></Menu.Item>
+              <Menu.Item icon={<PieChartOutlined />} key="8"><Link to="/charts/pie">饼图</Link></Menu.Item>
             </SubMenu>
 
           </Menu>

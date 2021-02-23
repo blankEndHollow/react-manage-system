@@ -17,12 +17,12 @@ export default class Home extends Component {
     if(pCategoryId === '0'){
       result[0] = await getCategoryName({ categoryId })
     }else{
-      [ result[0] , result[1] ] = await Promise.all( [getCategoryName({ categoryId }) , getCategoryName({ pCategoryId })] )
+      [ result[0] , result[1] ] = await Promise.all( [getCategoryName({ categoryId }) , getCategoryName({ categoryId:pCategoryId })] )
     }
     //设置分类
     this.setState({
-      cName1 : result[0].data && result[0].data.name , 
-      cName2 : result[1] && result[1].data && result[1].data.name
+      cName1 : result[1] && result[1].data && result[1].data.name ,
+      cName2 : result[0].data && result[0].data.name 
     })
   }
   render(){

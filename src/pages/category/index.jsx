@@ -69,7 +69,7 @@ export default class Product extends Component {
           pagination={{
             defaultPageSize:5,
             showQuickJumper:true,
-            pageSizeOptions:['5','10','12']
+            defaultCurrent: 1
           }} 
           loading={ this.state.loading }
           scroll={{ y:320 }}>
