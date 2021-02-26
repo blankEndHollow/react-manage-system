@@ -5,7 +5,9 @@
 /.pnp
 .pnp.js
 /admin-server_final
-
+/src_object
+/src_redux
+/src_自定义redux
 # testing
 /coverage
 
